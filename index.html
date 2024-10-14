@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aam's Typewriter</title>
+    <style>
+      * {
+        font-family: sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        padding: 150px 75px;
+
+        background: #fafcff;
+        text-align: center;
+      }
+
+      #typewriter {
+        color: #700000;
+        font-weight: bold;
+      }
+
+      #cursor {
+        color: #700000;
+        animation: blink 1s linear infinite;
+      }
+
+      @keyframes blink {
+        0% {
+          opacity: 100%;
+        }
+        50% {
+          opacity: 0%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      Yo wsup! I'm Aam 👋<br />
+      I am a <span id="typewriter"></span> <span id="cursor">|</span>
+    </h1>
+    <script>
+      function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
+      const phrases = ["Frontend Developer", "Traveller", "Web Designer"];
+      const elemen = document.getElementById("typewriter");
+
+      let breakTime = 100;
+
+      let nowIndex = 0;
+
+      const theLoop = async () => {
+        while (true) {
+          let nowWord = phrases[nowIndex];
+
+          for (let i = 0; i < nowWord.length; i++) {
+            elemen.innerText = nowWord.substring(0, i + 1);
+            await sleep(breakTime);
+          }
+
+          await sleep(breakTime * 10);
+
+          for (let i = nowWord.length; i > 0; i--) {
+            elemen.innerText = nowWord.substring(0, i - 1);
+            await sleep(breakTime);
+          }
+
+          await sleep(breakTime * 2);
+
+          if (nowIndex === phrases.length - 1) {
+            nowIndex = 0;
+          } else {
+            nowIndex++;
+          }
+        }
+      };
+
+      theLoop();
+    </script>
+  </body>
+</html>
